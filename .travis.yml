@@ -46,13 +46,13 @@ script:
     source build/envsetup.sh
     # Choose build flavor as "eng" or "userdebug"
     BUILD_FLAVOR="eng"
-    lunch omni_${_CODENAME_}-${BUILD_FLAVOR}
+    lunch omni_giza-${BUILD_FLAVOR}
     make -j$(nproc --all) recoveryimage
     exit
     EOF
 after_success:
   - export version=$(cat bootable/recovery/variables.h | grep "define TW_MAIN_VERSION_STR" | cut -d '"' -f2)
-  - cp $HOME/twrp/out/target/product/${_CODENAME_}/recovery.img $HOME/twrp/TWRP-$version-${_CODENAME_}-$(date +"%Y%m%d")-Unofficial.img
+  - cp $HOME/twrp/out/target/product/giza/recovery.img $HOME/twrp/TWRP-$version-giza-$(date +"%Y%m%d")-Unofficial.img
   - cd $HOME/twrp/
   # Optional: You might need to switch from https://transfer.sh to https://file.io
   # - curl -s --upload-file TWRP-$version-${_CODENAME_}-$(date +"%Y%m%d")-Unofficial.img https://transfer.sh/ && echo ""
@@ -65,7 +65,7 @@ deploy:
   file: $HOME/twrp/*.img
   on:
     tags: false # Set "true" to deploy only on successful tagged commit builds
-    repo: ${_USERNAME_}/${_REPO_SLUG_} # Optional: If you want to deploy on different repository
+    repo: count-0/android_device_KFGIWI_giza.git # Optional: If you want to deploy on different repository
     branch: main # Optional: Needs to be exact as the config branch
 branches:
   only:
